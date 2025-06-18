@@ -1,30 +1,21 @@
 name: Pull Git Content on Develop Push
-
-# Trigger the workflow on push events specifically to 'develop' branch
 on:
   push:
     branches:
       - develop
-
 jobs:
   pull-code:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout the repo
-      uses: actions/checkout@v3
-      with:
-        ref: develop  # make sure we checkout develop branch
-
-    - name: Create a folder to pull content
-      run: mkdir -p pulled-content
-
-    - name: Copy repo content to the folder
-      run: |
-        cp -r * pulled-content/
-        # Optionally exclude the .github folder or any other unwanted files
-        rm -rf pulled-content/.github
-
-    - name: List files in pulled-content folder
-      run: ls -la pulled-content/
-
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+        with:
+          ref: develop
+      - name: Create a folder to pull content
+        run: mkdir -p pulled-content
+      - name: Copy repo content to the folder
+        run: |
+          cp -r * pulled-content/
+          rm -rf pulled-content/.github
+      - name: List files in pulled-content folder
+        run: ls -la pulled-content/
